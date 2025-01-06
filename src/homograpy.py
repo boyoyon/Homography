@@ -124,11 +124,19 @@ def main():
     
     minY = np.min(pts_src[:,1])
     maxY = np.max(pts_src[:,1])
-    
-    pts_dst[0] = (minX + width // 2, minY + height // 2)
-    pts_dst[1] = (minX + width // 2, maxY + height // 2)
-    pts_dst[2] = (maxX + width // 2, maxY + height // 2)
-    pts_dst[3] = (maxX + width // 2, minY + height // 2)
+   
+    X = sorted(pts_src, key=lambda x:x[0])
+    Y = sorted(pts_src, key=lambda x:x[1])
+
+    left   = (X[0][0] + X[1][0]) // 2 + width // 2
+    right  = (X[2][0] + X[3][0]) // 2 + width // 2
+    top    = (Y[0][1] + Y[1][1]) // 2 + height // 2
+    bottom = (Y[2][1] + Y[3][1]) // 2 + height // 2
+
+    pts_dst[0] = (left,  top)
+    pts_dst[1] = (left,  bottom) 
+    pts_dst[2] = (right, bottom)
+    pts_dst[3] = (right, top)
     
     print(pts_src, pts_dst)
     
